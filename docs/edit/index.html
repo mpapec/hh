@@ -1,0 +1,112 @@
+<!doctype html>
+
+<head>
+    <title>Single page editor</title>
+    <meta charset="utf-8"/>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-28406781-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-28406781-2');
+    </script>
+</head>
+
+<link rel=stylesheet href="../doc/docs.css">
+
+<link rel=stylesheet href=../lib/codemirror.css>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+    jQuery.noConflict();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+<!-- script src="../libx/jquery.urlshortener.min.js"></script -->
+<script src="../libx/lz-string.min.js"></script>
+<script src="../libx/main.js"></script>
+<script src="../lib/codemirror.js"></script>
+<script src="../mode/xml/xml.js"></script>
+<script src="../mode/javascript/javascript.js"></script>
+<script src="../mode/css/css.js"></script>
+<script src="../mode/htmlmixed/htmlmixed.js"></script>
+<style type=text/css>
+      .CodeMirror {
+        float: left;
+        width: 50%;
+        height: 400px;
+        border: 1px solid black;
+      }
+      iframe {
+        width: 49%;
+        float: left;
+        height: 400px;
+        border: 1px solid black;
+        border-left: 0px;
+      }
+</style>
+
+<h2>Single page editor</h2>
+
+    <textarea id=code name=code>
+<html>
+  <head>
+    <meta charset=utf-8>
+    <title>Serverless web page</title>
+  </head>
+  <body>
+    <p>Page content</p>
+  </body>
+</html></textarea>
+<iframe id=preview></iframe><br/>
+    
+<input id="url" size=60 value="">
+<button class="btn" data-clipboard-target="#url" title="Copy to clipboard">
+    <img src="clippy.svg" width=14>
+</button>
+<button id="shorten">Shorten url</button>
+
+<br/>
+<br/>
+<!--
+-->
+<div class="money-button"
+  data-to="261"
+  data-amount="0.50"
+  data-currency="USD"
+  data-label="&#x2615; Button"
+  data-client-identifier="b35a94d5de990410b21d73ed4f182344"
+  data-button-id="1540594565367"
+  data-button-data="{}"
+  data-type="tip"
+></div>
+<script src="https://www.moneybutton.com/moneybutton.js"></script>
+
+<script>
+      new ClipboardJS('.btn');
+
+      var delay;
+      // Initialize
+      var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+        mode: 'text/html'
+      });
+      editor.on("change", function() {
+        clearTimeout(delay);
+        delay = setTimeout(updatePreview, 300);
+      });
+      
+      var baseUrl = window.location.href.replace(/\w+\/[^/]*$/, "");
+      function updatePreview() {
+        var previewFrame = document.getElementById('preview');
+        var preview =  previewFrame.contentDocument ||  previewFrame.contentWindow.document;
+        preview.open();
+        preview.write(editor.getValue());
+        preview.close();
+        
+        var $url = jQuery("#url");
+        if ( !$url.val() || $url.val().match(/#/) ) {
+            var base64 = LZString.compressToBase64( editor.getValue().replace(/\n/g, " ").replace(/> +</g, "><") );
+            $url.val(baseUrl +"#"+ base64);
+        }
+      }
+      setTimeout(updatePreview, 300);
+</script>
