@@ -1,0 +1,56 @@
+<img src="https://mpapec.github.io/hh/playsv/split_bank.jpg"><br>
+<audio controls="" autoplay="" id="player"  type="audio/ogg"></audio>
+
+<script>
+(function(){
+    "use strict";
+    var query = {
+      "v": 3,
+      "q": {
+        "find": {
+          "tx.h": {"$in": [
+            "4cc4cf345c38d6364b176668bca649df159028de1692e9c398ee58e575cad262",
+            "be3b96535a24f37514b468b87f741404d53fbd1c4a12f3baaf26d4466cd4e885",
+            "46bd7fb23009b8a9037b11294cc8106408e178d034ca5df07dd6d723bf4110e0",
+            "66a171f45a182a15a3e7a496fb2aa8232dbcc423389ed386786de0b64c522d98",
+            "ba16c557fadbcea86453f3b1185e6ea3c3910d970a837d91a500d9f1f40e9a59",
+            "482f9b511e32371e096f4a2da971dbc7b865efa6b04b19e8a2c3c54c94e466a1",
+            "a830fdfe2f16b21c39bd490f800c6ea4bcfa69461a59bb5f6f2fe61cf9c8a705",
+            "ac4c1e7dceee4282df0b5c2caba72d1f32878468e30284182b777dddc5c6f6f7",
+            "42c189b4c856e468dd603fd3fbcbbe859bab179ba104cd53e4d27d5b641d3b0c",
+            "26d192d7b84aa93013f8d29cb6ec004d4c022f7121d3e2a0d4c9f2fa91014dfe",
+/*
+            "c2daadd9b866d5fdbbbd02a8ecbfa67c2f839104d1767106329a6a77f4d037ad",
+            "2254cdbd27e303eb5554fb91dd692e169df5997f3bd8b41701fc4fe22d8054b3",
+            "7941cb9575706f1f9679dba14e742dd63cec53b31b41717d5912260649f5a470",
+            "91ba2fca22220ffc8f7d843882b85454fc2a9ef21c7dc3fcc4afeb3ed2cecc95",
+            "35271dd806da1d215e671ec5c53ed9fab7e69578c15e38c9cbf8fa9a3532cc71",
+            "44662e5bb0580b7c8a53520ae3a33004b732c97cbd00c5a6e9f750236dd5475f",
+            "78cbc946987e8f812656de9b89b80f0ccd7a8719e1dbf6ed72115d787839c578",
+            "d31c1853aa4507a0499b55de6c36f597438a9c67f84475bea4cfe97630d8de27"
+*/
+        ]}
+        },
+        "limit": 10
+      },
+      "r": {
+        "f": "[.[] | { content: .out[0].lb2 }]"
+      }
+    };
+
+    var url = "https://genesis.bitdb.network/q/1FnauZ9aUH2Bex6JzdcV4eNX7oLSSEbxtN/"+ btoa(JSON.stringify(query));
+    var header = {
+      headers: { key: [['1L4XX9iXMPVf1x7rYW9L1oDUaTqbDkkJ8']] }
+    };
+
+    fetch(url, header)
+    .then(function(r) {
+        return r.json()
+    })
+    .then(function(r) {
+      var tmp = r.c.reverse();
+      document.getElementById("player").src = "data:audio/ogg;base64,"+ btoa( tmp.map(function(v) { return atob(v.content); }).join("") );
+    });
+
+})();
+</script>
