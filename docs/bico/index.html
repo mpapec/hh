@@ -1,0 +1,21 @@
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function(e) {
+    "use strict";
+    var load = function (content) {
+        console.log(content);
+        document.open();
+        document.write(content);
+        document.close();
+        window.document.dispatchEvent(new Event("DOMContentLoaded", {
+          bubbles: true,
+          cancelable: true
+        }));
+    };
+    var tx = window.location.hash.slice(1);
+    if (!tx) return;
+    $.get("https://bico.media/"+ tx +".txt", function(c){
+        load(c.replace(/\bb:\/{2}\b(?![^>]*<|[^<>]*$)/gi, 'https://bico.media/'));
+    });    
+});
+</script>
