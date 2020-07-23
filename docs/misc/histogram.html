@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
+    * {
+    /* font-family: NotoSansJP,Slack-Lato,appleLogo,sans-serif; */
+    font-family: Segoe UI;
+    font-size: 14px;
+    }
 .bar rect {
   fill: steelblue;
 }
-
 .bar text {
   fill: #fff;
   font: 10px sans-serif;
@@ -72,10 +75,11 @@ function loop () {
     }
     //    data.push( r[i]-r[i-1] ); i++;
 
+    // https://blockchair.com/bitcoin-sv/block/456672
     info.html(
       new Date(r[i] *1000) +'-<br/>'+
       new Date(r[r.length-1] *1000) +'<br/><br/>'+
-      "min time: "+ min +" sec; max time: "+ max +" sec"+ "; block: "+ i
+      "min time: "+ min +" sec; max time: "+ max +" sec"+ "; block No: "+ i +"; height: "+ (i+456672)
       // +'<br/>'+
     );
 
