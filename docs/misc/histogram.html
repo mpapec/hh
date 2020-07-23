@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-    * {
+    #info, #info2 {
     /* font-family: NotoSansJP,Slack-Lato,appleLogo,sans-serif; */
     font-family: Segoe UI;
     font-size: 14px;
@@ -35,7 +35,7 @@ var info2 = d3.select("#info2");
 
 var formatCount = d3.format(",.0f");
 var svg = d3.select("svg"),
-    margin = {top: 10, right: 30, bottom: 30, left: 30},
+    margin = {top: 10, right: 30, bottom: 30, left: 45},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom;
 var x = d3.scaleLinear()
@@ -79,8 +79,8 @@ function loop () {
     info.html(
       // new Date(r[i] *1000) +'-<br/>'+
       // new Date(r[r.length-1] *1000) +'<br/><br/>'+
-      "Begin:"+ new Date(r[0] *1000) +'<br/>'+
-      "End:"+ new Date(r[i] *1000) +'<br/><br/>'+
+      "Begin: "+ new Date(r[0] *1000) +'<br/>'+
+      "End: "+ new Date(r[i] *1000) +'<br/><br/>'+
       "min time: "+ min +" sec<br> max time: "+ max +" sec<br>"+ "block No: "+ i +"; height: "+ (i+456672)
       // +'<br/>'+
     );
