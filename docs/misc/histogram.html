@@ -77,9 +77,11 @@ function loop () {
 
     // https://blockchair.com/bitcoin-sv/block/456672
     info.html(
-      new Date(r[i] *1000) +'-<br/>'+
-      new Date(r[r.length-1] *1000) +'<br/><br/>'+
-      "min time: "+ min +" sec; max time: "+ max +" sec"+ "; block No: "+ i +"; height: "+ (i+456672)
+      // new Date(r[i] *1000) +'-<br/>'+
+      // new Date(r[r.length-1] *1000) +'<br/><br/>'+
+      "Begin:"+ new Date(r[0] *1000) +'<br/>'+
+      "End:"+ new Date(r[i] *1000) +'<br/><br/>'+
+      "min time: "+ min +" sec<br> max time: "+ max +" sec<br>"+ "block No: "+ i +"; height: "+ (i+456672)
       // +'<br/>'+
     );
 
