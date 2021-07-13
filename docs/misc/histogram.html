@@ -19,12 +19,21 @@
 <p id="info">.</p>
 <p id="info2">mean/median: [calculating..]</p>
 <svg width="980" height="500"></svg>
+
+
+<table cellspacing=0 cellpadding=4 border=1 id="freq"><tr>
+    <td><b>Sec</b></td>
+    <td><b>% of block found</b></td>
+    <td><b>% cumulative</b></td>
+</tr></table>
+
+<script src="../libx/jquery-3.6.0.min.js"></script>
 <script src="d3.v4.min.js"></script>
 <script src="data.js"></script>
 <script>
 
 // var speed = 40;
-var speed = 400;
+var speed = 300;
 var info = d3.select("#info");
 var info2 = d3.select("#info2");
 
@@ -53,6 +62,40 @@ function finish () {
     info2.html(
         `arithmetic mean (or mean or average): <b>${amean(data).toFixed(2)}</b> sec ; median: <b>${median(data)}</b> sec`
     );
+    foundPerInterval(data);
+    // console.log(JSON.stringify(data));
+}
+
+function foundPerInterval (data) {
+    var everySec = 10;
+    var current = 0;
+    var prevSegmentIdx = 0;
+
+    var len = data.length;
+    for (let i = 0; i < len; i++) {
+      let v = data[i];
+      if (v >= current+everySec) {
+        var b = (current+everySec) %60 ? "" : "<b>";
+        $("#freq").append(`
+          <tr align="right"><td>${b} ${current} - ${current+everySec-1}</td>
+          <td>${b}${ (100*(i-prevSegmentIdx-1)/len).toFixed(2) } %</td>
+          <td>${b}${ (100*(i-1)/len).toFixed(2) } %</td>
+          </tr>
+        `);
+        prevSegmentIdx = i-1;
+        current += everySec;
+      }
+      if (v >60* 20) {
+        0&& $("#freq").append(`
+          <tr align="right"><td><b>remaining</b></td>
+          <td><b> ${ (100*(len-i)/len).toFixed(2) } %</b></td>
+          <td>-</td>
+          </tr>
+        `);
+        break;
+      }
+      // console.log(v); break;
+    }
 }
 
 function loop () {
@@ -76,7 +119,9 @@ function loop () {
       // new Date(r[r.length-1] *1000) +'<br/><br/>'+
       "Begin: "+ new Date(r[0] *1000) +'<br/>'+
       "End: "+ new Date(r[i] *1000) +'<br/><br/>'+
-      `min time: ${min} sec<br> max time: ${max} sec<br>block No: ${i}; height: ${i+456672}`
+      `min time: <b>${min}</b> sec<br>
+      max time: <b>${max}</b> sec<br>
+      block No: ${i}; height: ${i+456672}`
       // +'<br/>'+
     );
 
