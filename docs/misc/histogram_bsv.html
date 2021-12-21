@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+    #info, #info2 {
+    /* font-family: NotoSansJP,Slack-Lato,appleLogo,sans-serif; */
+    font-family: Segoe UI;
+    font-size: 14px;
+    }
+.bar rect {
+  fill: steelblue;
+}
+.bar text {
+  fill: #fff;
+  font: 10px sans-serif;
+}
+
+</style>
+<h3>Block time sec/number of occurrences</h3>
+<p id="info">.</p>
+<p id="info2">mean/median: [calculating..]</p>
+<svg width="980" height="500"></svg>
+
+
+<table cellspacing=0 cellpadding=4 border=1 id="freq"><tr>
+    <td><b>Sec</b></td>
+    <td><b>% of block found</b></td>
+    <td><b>% cumulative</b></td>
+</tr></table>
+
+<script src="../libx/jquery-3.6.0.min.js"></script>
+<script src="d3.v4.min.js"></script>
+<script src="data.js"></script>
+<script src="main.js"></script>
